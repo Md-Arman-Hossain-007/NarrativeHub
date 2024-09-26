@@ -60,12 +60,12 @@ services:
           - postgres
           - mailhog
         networks:
-          -biographer-api
+          - biographer-api
 
     flower:
         build:
           context: .
-          dockerfile: ./django/local/django/Dockerfile
+          dockerfile: ./docker/local/django/Dockerfile
         command: /start-flower
         volumes:
           - flower_data:/data
@@ -79,7 +79,6 @@ services:
           - postgres
         networks:
           - biographer-api
-
 
     nginx:
         restart: always
