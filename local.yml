@@ -43,7 +43,7 @@ services:
     redis:
         image: redis:7-alpine
         networks:
-          -biographer-api
+          - biographer-api
 
     celery_worker:
         build:
