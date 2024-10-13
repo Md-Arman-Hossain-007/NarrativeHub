@@ -15,14 +15,14 @@ class Profile(TimeStampedModel):
         MALE = "M", _("Male")
         FEMALE = "F", _("Female")
         OTHER = "O", _("Other")
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    phone_number = PhoneNumberField(verbose_name=_("phone number"), max_length=30, default=+8801923675361)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile")
+    phone_number = PhoneNumberField(verbose_name=_("phone number"), max_length=30, default="+880-1923675361")
     gender = models.CharField(verbose_name=_("gender"), max_length=20, choices=Gender.choices, default=Gender.OTHER)
     country = CountryField(verbose_name=_("country"), default="BD", blank=False, null=False)
     city = models.CharField(verbose_name=_("city"), max_length=180, default="Dhaka", blank=False, null=False)
     profile_photo = models.ImageField(verbose_name=_("profile photo"), default="/profile_default.png")
     twitter_handle = models.CharField(verbose_name=_("twitter handle"), max_length=20, blank=True)
-    followers = models.ManyToManyField(to="self", verbose_name=_("followers count"), symmetrical=False, related_name="followers", blank=True)
+    followers = models.ManyToManyField(to="self", verbose_name=_("followers count"), symmetrical=False, related_name="following", blank=True)
 
     def __str__(self):
         return f"{self.user.first_name}'s Profile"

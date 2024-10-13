@@ -42,6 +42,7 @@ services:
 
     redis:
         image: redis:7-alpine
+        platform: linux/amd64
         networks:
           - biographer-api
 
@@ -91,7 +92,7 @@ services:
           context: ./docker/local/nginx
           dockerfile: Dockerfile
         ports:
-          - "8080:80"
+          - "1212:80"
         networks:
           - biographer-api
 
