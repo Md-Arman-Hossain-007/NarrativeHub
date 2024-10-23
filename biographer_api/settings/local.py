@@ -1,4 +1,4 @@
-from .base import *
+from .base import * # noqa
 from .base import env
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -17,6 +17,6 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
 EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 EMAIL_PORT = env("EMAIL_PORT")
-DEFAULT_FROM_EMAIL = "support@biographer_api.site"
+DEFAULT_FROM_EMAIL = "support@biographer-api.site"
 DOMAIN = env("DOMAIN")
 SITE_NAME = "Biographer Haven"
