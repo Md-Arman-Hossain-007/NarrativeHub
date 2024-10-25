@@ -27,11 +27,11 @@ class Profile(TimeStampedModel):
     def __str__(self):
         return f"{self.user.first_name}'s Profile"
 
-    def follow(self, profile):
-        self.followers.add(profile)
+    def follow(self, user_profile):
+        self.followers.add(user_profile)
 
-    def unfollow(self, profile):
-        self.followers.remove(profile)
+    def unfollow(self, user_profile):
+        self.followers.remove(user_profile)
 
-    def check_following(self, profile):
-        return self.followers.filter(pkid=profile.pkid).exists()
+    def check_following(self, user_profile):
+        return self.followers.filter(pkid=user_profile.pkid).exists()

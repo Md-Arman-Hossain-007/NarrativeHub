@@ -11,11 +11,11 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    gender = serializers.CharField(source="profile.gender")
-    phone_number = PhoneNumberField(source="profile.phone_number")
-    profile_photo = serializers.ReadOnlyField(source="profile.profile_photo.url")
-    country = CountryField(source="profile.country")
-    city = serializers.CharField(source="profile.city")
+    gender = serializers.CharField(source="user_profile.gender")
+    phone_number = PhoneNumberField(source="user_profile.phone_number")
+    profile_photo = serializers.ReadOnlyField(source="user_profile.profile_photo.url")
+    country = CountryField(source="user_profile.country")
+    city = serializers.CharField(source="user_profile.city")
 
     class Meta:
         model = User
