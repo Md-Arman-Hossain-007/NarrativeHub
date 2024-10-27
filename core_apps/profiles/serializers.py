@@ -32,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return obj.user.first_name.title() + " " + obj.user.last_name.title()
 
     def get_profile_photo(self, obj):
-        return obj.user.profile_photo.url
+        return obj.profile_photo.url
 
 
 class UpdateProfileSerializer(serializers.ModelSerializer):

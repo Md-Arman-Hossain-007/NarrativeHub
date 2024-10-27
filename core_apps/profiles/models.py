@@ -23,6 +23,7 @@ class Profile(TimeStampedModel):
     profile_photo = models.ImageField(verbose_name=_("profile photo"), default="/profile_default.png")
     twitter_handle = models.CharField(verbose_name=_("twitter handle"), max_length=20, blank=True)
     followers = models.ManyToManyField(to="self", verbose_name=_("followers count"), symmetrical=False, related_name="following", blank=True)
+    about_me = models.TextField(verbose_name=_("about me"), default="say something about yourself", )
 
     def __str__(self):
         return f"{self.user.first_name}'s Profile"
