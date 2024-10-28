@@ -98,7 +98,7 @@ class FollowingListAPIView(APIView):
 class FollowAPIView(APIView):
     def post(self, request, user_id, format=None):
         try:
-            follower = Profile.objects.get(user=user_id)
+            follower = Profile.objects.get(user=self.request.user)
             user_profile = request.user.user_profile
             profile = Profile.objects.get(user__id=user_id)
 
