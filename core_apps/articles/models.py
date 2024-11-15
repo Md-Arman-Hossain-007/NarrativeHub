@@ -13,7 +13,7 @@ User = get_user_model()
 class Article(TimeStampedModel):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="articles")
     title = models.CharField(verbose_name=_("Title"), max_length=255)
-    slug = AutoSlugField(populate_from=_("title"), always_update=True, unique=True)
+    slug = AutoSlugField(populate_from="title", always_update=True, unique=True)
     description = models.CharField(verbose_name=_("description"), max_length=255)
     body = models.TextField(verbose_name=_("article content"))
     banner_image = models.ImageField(verbose_name=_("banner image"), default="/profile_default.png")

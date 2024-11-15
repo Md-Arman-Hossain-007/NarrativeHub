@@ -21,10 +21,10 @@ class ArticleListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = ArticlePagination
-    filter_backends = (
+    filter_backends = [
         DjangoFilterBackend,
         filters.OrderingFilter
-    )
+    ]
     filterset_class = ArticleFilter
     ordering_fields = ["created_at", "updated_at"]
     renderer_classes = [ArticlesJSONRenderer]

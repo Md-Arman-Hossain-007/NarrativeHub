@@ -5,7 +5,7 @@ from core_apps.profiles.serializers import ProfileSerializer
 
 class TagListField(serializers.Field):
     def to_representation(self, value):
-        return [tag for tag in value.all()]
+        return [tag.name for tag in value.all()]
 
     def to_internal_value(self, data):
         if not isinstance(data, list):
@@ -22,7 +22,7 @@ class TagListField(serializers.Field):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    author = ProfileSerializer(source="author.profile", read_only=True)
+    author_info = ProfileSerializer(source="author.user_profile", read_only=True)
     banner_image = serializers.SerializerMethodField()
     estimated_reading_time = serializers.ReadOnlyField()
     tags = TagListField()
@@ -31,10 +31,20 @@ class ArticleSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
 
     def get_views(self, obj):
-        return Article.objects.filter(article=obj).count()
+        return ArticleView.objects.filter(article=obj).count()
 
     def get_banner_image(self, obj):
         return obj.banner_image.url
+
+    # def get_author_info(self, obj):
+    #     return {
+    #         "username": obj.author.profile.user.first_name,
+    #         "fullname": obj.author.profile.user.get_full_name,
+    #         "about_me": obj.author.profile.about_me,
+    #         "profile_photo": obj.author.profile.profile_photo.url,
+    #         "email": obj.author.profile.user.email,
+    #         "twitter_handle": obj.author.profile.twitter_handle,
+    #     }
 
     def get_created_at(self, obj):
         now = obj.created_at
@@ -53,7 +63,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         return article
 
     def update(self, instance, validated_data):
-        instance.author += validated_data.pop("author", instance.author)
+        instance.author = validated_data.pop("author", instance.author)
         instance.title = validated_data.get("title", instance.title)
         instance.description = validated_data.get("description", instance.description)
         instance.body = validated_data.get("body", instance.body)
