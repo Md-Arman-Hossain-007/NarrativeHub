@@ -30,6 +30,9 @@ class Article(TimeStampedModel):
     def view_count(self):
         return self.article_views.count()
 
+    def average_rating(self):
+        ratings = self.ratings.all()
+
 
 class ArticleView(TimeStampedModel):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="article_views")
