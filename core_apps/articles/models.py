@@ -26,12 +26,18 @@ class Article(TimeStampedModel):
     def estimated_reading_time(self):
         return ArticleReadTimeEngine.estimate_reading_time(self)
 
-    # to check how many time article has viewed
+    # to check how many times article has viewed
     def view_count(self):
         return self.article_views.count()
 
     def average_rating(self):
         ratings = self.ratings.all()
+
+        if ratings.count() > 0:
+            total_ratings = sum(rating.rating for rating in ratings)
+            average_rating = total_ratings / ratings.count()
+            return round(average_rating, 2)
+        return None
 
 
 class ArticleView(TimeStampedModel):
