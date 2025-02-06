@@ -2,6 +2,7 @@ from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
 from core_apps.articles.models import Article
 
+
 @registry.register_document
 class ArticleDocument(Document):
     title = fields.TextField(attr="title", required=True)
