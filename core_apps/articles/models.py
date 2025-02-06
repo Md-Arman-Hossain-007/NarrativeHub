@@ -28,10 +28,14 @@ class Article(TimeStampedModel):
     slug = AutoSlugField(populate_from="title", always_update=True, unique=True)
     description = models.CharField(verbose_name=_("description"), max_length=255)
     body = models.TextField(verbose_name=_("article content"))
-    banner_image = models.ImageField(verbose_name=_("banner image"), default="/profile_default.png")
+    banner_image = models.ImageField(
+        verbose_name=_("banner image"), default="/profile_default.png"
+    )
     tags = TaggableManager()
 
-    claps = models.ManyToManyField(User, through="Clap", related_name="clapped_articles")
+    claps = models.ManyToManyField(
+        User, through="Clap", related_name="clapped_articles"
+    )
 
     def __str__(self):
         return f"{self.author.first_name}'s article"
@@ -55,9 +59,15 @@ class Article(TimeStampedModel):
 
 
 class ArticleView(TimeStampedModel):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="article_views")
-    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True, related_name="user_views")
-    viewer_ip = models.GenericIPAddressField(verbose_name=_("viewer IP"), null=True, blank=True)
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="article_views"
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="user_views"
+    )
+    viewer_ip = models.GenericIPAddressField(
+        verbose_name=_("viewer IP"), null=True, blank=True
+    )
 
     class Meta:
         verbose_name = _("Article View")
@@ -65,10 +75,14 @@ class ArticleView(TimeStampedModel):
         unique_together = ("article", "user", "viewer_ip")
 
     def __str__(self):
-        return (f"{self.article.title} viewed by {self.user.first_name if self.user else 'Anonymous'} from "
-                f"IP {self.viewer_ip}")
+        return (
+            f"{self.article.title} viewed by {self.user.first_name if self.user else 'Anonymous'} from "
+            f"IP {self.viewer_ip}"
+        )
 
     @classmethod
     def record_view(cls, article, user, viewer_ip):
-        view, _ = cls.objects.get_or_create(article=article, user=user, viewer_ip=viewer_ip)
+        view, _ = cls.objects.get_or_create(
+            article=article, user=user, viewer_ip=viewer_ip
+        )
         view.save()
