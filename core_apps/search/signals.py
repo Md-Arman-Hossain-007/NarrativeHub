@@ -5,5 +5,9 @@ from core_apps.articles.models import Article
 
 @receiver(post_save, sender=Article)
 def update_article_document(sender, instance=None, created=False, **kwargs):
-    if kwargs.get('created', False):
-        instance.save()
+    registry.update(instance)
+
+
+@receiver(post_delete, sender=Article)
+def delete_article_document(sender, instance=None, **kwargs):
+    registry.delete(instance)
