@@ -54,7 +54,3 @@ class BookmarkDestroyView(generics.DestroyAPIView):
         if instance.user != user:
             raise ValidationError("You are not allowed to delete this bookmark")
         instance.delete()
-
-
-
-
