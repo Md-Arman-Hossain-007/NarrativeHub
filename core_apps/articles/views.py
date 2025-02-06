@@ -24,17 +24,16 @@ class ArticleListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = ArticlePagination
-    filter_backends = [
-        DjangoFilterBackend,
-        filters.OrderingFilter
-    ]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = ArticleFilter
     ordering_fields = ["created_at", "updated_at"]
     renderer_classes = [ArticlesJSONRenderer]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-        logger.info(f"article {serializer.data.get('title')} created by {self.request.user.first_name}")
+        logger.info(
+            f"article {serializer.data.get('title')} created by {self.request.user.first_name}"
+        )
 
 
 class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -48,8 +47,10 @@ class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     def perform_update(self, serializer):
         instance = serializer.save(author=self.request.user)
         if "banner_image" in self.request.FILES:
-            if (instance.banner_image and
-                    instance.banner_image.name != "/profile_default.png"):
+            if (
+                instance.banner_image
+                and instance.banner_image.name != "/profile_default.png"
+            ):
                 default_storage.delete(instance.banner_image.path)
             instance.banner_image = self.request.FILES["banner_image"]
             instance.save()
@@ -63,9 +64,9 @@ class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
         serializer = self.get_serializer(instance)
 
         viewer_ip = request.META.get("REMOTE_ADDR", None)
-        ArticleView.record_view(article=instance,
-                                user=request.user,
-                                viewer_ip=viewer_ip)
+        ArticleView.record_view(
+            article=instance, user=request.user, viewer_ip=viewer_ip
+        )
         return Response(serializer.data)
 
 
@@ -82,14 +83,15 @@ class ClapArticleAPIView(generics.CreateAPIView, generics.DestroyAPIView):
             return Response(
                 data={
                     "detail": "You have already clapped on this article",
-                }, status=status.HTTP_400_BAD_REQUEST
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         clap = Clap.objects.create(user=user, article=article)
         clap.save()
         return Response(
             data={"detail": "Clapped added to this article"},
-            status=status.HTTP_201_CREATED
+            status=status.HTTP_201_CREATED,
         )
 
     def delete(self, request, *args, **kwargs):
@@ -101,5 +103,5 @@ class ClapArticleAPIView(generics.CreateAPIView, generics.DestroyAPIView):
         clap.delete()
         return Response(
             data={"detail": "Clapped deleted from this article"},
-            status=status.HTTP_204_NO_CONTENT
+            status=status.HTTP_204_NO_CONTENT,
         )
