@@ -1,12 +1,12 @@
 from django_elasticsearch_dsl_drf.filter_backends import (
+    DefaultOrderingFilterBackend,
     FilteringFilterBackend,
     IdsFilterBackend,
     OrderingFilterBackend,
-    DefaultOrderingFilterBackend,
     SearchFilterBackend,
 )
-
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+
 from .documents import ArticleDocument
 from .serializers import ArticleElasticSearchSerializer
 
