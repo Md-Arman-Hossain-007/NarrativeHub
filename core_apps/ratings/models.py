@@ -12,9 +12,11 @@ class Rating(TimeStampedModel):
         (2, "Fair"),
         (3, "Good"),
         (4, "Very Good"),
-        (5, "Excellent")
+        (5, "Excellent"),
     ]
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="ratings")
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="ratings"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(choices=RATING_CHOICES)
     review = models.TextField(blank=True)
