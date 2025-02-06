@@ -14,5 +14,5 @@ class ResponseSerializer(serializers.ModelSerializer):
             "article_title",
             "parent_response",
             "content",
-            "created_at"
+            "created_at",
         ]
