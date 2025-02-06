@@ -3,12 +3,13 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     IdsFilterBackend,
     OrderingFilterBackend,
     DefaultOrderingFilterBackend,
-    SearchFilterBackend
+    SearchFilterBackend,
 )
 
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 from .documents import ArticleDocument
 from .serializers import ArticleElasticSearchSerializer
+
 
 class ArticleElasticSearchView(DocumentViewSet):
     document = ArticleDocument
@@ -18,7 +19,7 @@ class ArticleElasticSearchView(DocumentViewSet):
         IdsFilterBackend,
         OrderingFilterBackend,
         DefaultOrderingFilterBackend,
-        SearchFilterBackend
+        SearchFilterBackend,
     ]
     search_fields = (
         "title",
@@ -28,12 +29,6 @@ class ArticleElasticSearchView(DocumentViewSet):
         "author_last_name",
         "tags",
     )
-    filter_fields = {
-        "slug": "slug.raw",
-        "tags": "tags",
-        "created_at": "created_at"
-    }
-    ordering_fields = {
-        "created_at": "created_at"
-    }
+    filter_fields = {"slug": "slug.raw", "tags": "tags", "created_at": "created_at"}
+    ordering_fields = {"created_at": "created_at"}
     ordering = ("-created_at",)
