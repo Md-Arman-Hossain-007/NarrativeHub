@@ -26,4 +26,3 @@ class UserCreationForm(admin_forms.UserCreationForm):
             except User.DoesNotExist:
                 return email
             raise forms.ValidationError(self.error_messages["duplicate_email"])
-
