@@ -25,7 +25,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "country",
             "city",
             "twitter_handle",
-            "about_me"
+            "about_me",
         ]
 
     def get_full_name(self, obj):
@@ -47,7 +47,7 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
             "gender",
             "country",
             "city",
-            "twitter_handle"
+            "twitter_handle",
         ]
 
 
@@ -62,5 +62,5 @@ class FollowingSerializer(serializers.ModelSerializer):
             "last_name",
             "profile_photo",
             "about_me",
-            "twitter_handle"
+            "twitter_handle",
         ]
