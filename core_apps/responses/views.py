@@ -43,7 +43,7 @@ class ResponseUpdateDestroyApiView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         response = self.get_object()
         if user != response.user:
-            raise PermissionDenied("You do not have permission to delete this response.")
+            raise PermissionDenied(
+                "You do not have permission to delete this response."
+            )
         instance.delete()
-
-
