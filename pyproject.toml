@@ -1,0 +1,39 @@
+[tool.black]
+line-length = 88
+target-version = ['py311']
+extend-exclude = '''
+(
+    /(
+        \.eggs
+        | \.git
+        | \.mypy_cache
+        | \.pytest_cache
+        | \.vscode
+        | \.cache
+        | \.pytest_cache
+        | \.tox
+        | \.hg
+        | \.svn
+        | \.envs
+        | \.venv
+        | \.idea
+        | \.vscode-server
+        | \.vscode-server-insiders
+        | _build
+        | buck-out
+        | __pycache__
+        | build
+        | dist
+        | env
+        | venv
+    )/
+
+)
+'''
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+ignore = "E203, E501, W503"
+max-line-length = 120
