@@ -9,16 +9,18 @@ User = get_user_model()
 
 
 class Response(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responses')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='responses')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="responses")
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="responses"
+    )
     parent_response = models.ForeignKey(
         to="self",
         null=True,
         blank=True,
         related_name="replies",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-    content = models.TextField(verbose_name=_('response content'))
+    content = models.TextField(verbose_name=_("response content"))
 
     class Meta:
         verbose_name = "Response"
