@@ -70,5 +70,3 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.last_name = self.cleaned_data.get("last_name")
 
         return user
-
-
