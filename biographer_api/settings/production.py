@@ -1,5 +1,4 @@
 from .base import *  # noqa
-from .base import env
 
 ADMINS = [
     ("Md. Arman Hossain", "armanhossain.tech@gmail.com")
